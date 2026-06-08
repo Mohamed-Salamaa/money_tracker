@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:money_tracker/services/auth.dart';
+import 'package:money_tracker/screens/landing.dart';
 
 
 class SignupScreen extends StatefulWidget {
@@ -338,16 +339,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (mounted) {
         if (response.statusCode == 200) {
-          final Map<String, dynamic> responseData = jsonDecode(response.body);
+          String userName = jsonDecode(response.body)['message']['user'];
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('${responseData['message']}')),
+            SnackBar(content: Text('Welcome back, $userName')),
+          );
+          // Rout over to our personalized landing presentation screen
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LandingScreen(userName: userName),
+              ),
+              (route) => route.isFirst,
           );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Login failed! Please check your details and try again.')),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+            const SnackBar(content: Text('Login failed! Please check your details and try again.')),
           );
         }
-        Navigator.pop(context);
       }
     }
   }
