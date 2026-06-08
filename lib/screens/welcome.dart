@@ -27,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 24),
                   Text(
-                    'Hello',
+                    'Welcome to Money Tracker',
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
